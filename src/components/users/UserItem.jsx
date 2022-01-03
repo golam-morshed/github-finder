@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 
-function UserItem({ user: { login, avatar_url }, handleUserDetails }) {
+function UserItem({ user: { login, avatar_url } }) {
     return (
         <div className="card shadow-md compact side bg-base-100">
-            <Link to={`/user/${login}`} onClick={handleUserDetails} className="group flex-row items-center space-x-4 card-body bg-gray-600 hover:bg-gray-900 shadow-lg text-white-500 transition-all ease-in-out duration-150 ">
+            <Link to={`/user/${login}`} className="group flex-row items-center space-x-4 card-body bg-gray-600 hover:bg-gray-900 shadow-lg text-white-500 transition-all ease-in-out duration-150 ">
 
                 <div>
                     <div className="avatar">

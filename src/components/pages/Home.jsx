@@ -1,20 +1,18 @@
 import UserResults from "../users/UserResults"
-import { GithubProvider } from "../../context/github/GithubContext"
 import UserSearch from "../users/UserSearch"
 
 function Home() {
     return (
-        <GithubProvider>
-            <div className="h-full flex flex-col pb-5">
-                <div className="shrink">
-                    <UserSearch />
-                </div>
-                <div className="flex-1 overflow-y-auto">
-                    <UserResults />
-                </div>
 
+        <div className="h-full flex flex-col pb-5">
+            <div className="shrink">
+                <UserSearch />
             </div>
-        </GithubProvider>
+            <div className="flex-1 overflow-y-auto">
+                <UserResults />
+            </div>
+
+        </div>
     )
 }
 
