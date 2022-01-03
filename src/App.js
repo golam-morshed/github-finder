@@ -18,7 +18,7 @@ function App() {
             <div className="shrink">
               <Navbar />
             </div>
-            <main className='container mx-auto grow overflow-x-auto mt-5'>
+            <main className='container mx-auto grow overflow-x-auto mt-5 px-3'>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
