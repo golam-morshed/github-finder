@@ -1,17 +1,24 @@
 import { useContext, useState } from "react";
 import githubContext from "../../context/github/GithubContext";
+import AlertContext from "../../context/alert/AlertContext";
+import Alert from "../util/Alert";
 
 
 
 function UserSearch() {
     const [text, setText] = useState("");
     const { users, searchUsers, clearSearch } = useContext(githubContext);
+    const { alert, setAlert } = useContext(AlertContext);
 
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (text === "") return;
-        searchUsers(text);
+        if (text === "") {
+            setAlert("Please enter something", "error");
+        }
+        else {
+            searchUsers(text);
+        }
     }
     const onChange = (e) => {
         setText(e.target.value);
@@ -22,6 +29,8 @@ function UserSearch() {
         setText("");
         clearSearch();
     }
+
+    console.log("alert from UserSearch", alert);
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 mb-6 mt-1 ml-1 gap-8">
@@ -46,6 +55,7 @@ function UserSearch() {
                         </div>
                     </div>
                 </form>
+                <Alert alert={alert} />
             </div >
             <div>
                 {users.length > 0 && (
