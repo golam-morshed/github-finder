@@ -1,4 +1,5 @@
-import { useEffect, useContext, Fragment } from "react";
+import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa'
+import { useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import GithubContext from "../../context/github/GithubContext";
 
@@ -13,87 +14,149 @@ function UserDetail() {
 
     const {
         name,
-        company,
+        type,
         avatar_url,
         location,
         bio,
         blog,
+        twitter_username,
         login,
         html_url,
         followers,
         following,
         public_repos,
         public_gists,
-        hireable
+        hireable,
     } = user;
 
     return (
-        <Fragment>
-            <Link to='/' className='btn btn-light'>
-                Back To Search
-            </Link>
-            Hireable:{' '}
-            {hireable ? (
-                <i className='fas fa-check text-success' />
-            ) : (
-                <i className='fas fa-times-circle text-danger' />
-            )}
-            <div className='card grid-2'>
-                <div className='all-center'>
-                    <img
-                        src={avatar_url}
-                        className='round-img'
-                        alt=''
-                        style={{ width: '150px' }}
-                    />
-                    <h1>{name}</h1>
-                    <p>Location: {location}</p>
+        <>
+            <div className='w-full mx-auto lg:w-10/12'>
+                <div className='mb-4'>
+                    <Link to='/' className='btn btn-ghost'>
+                        Back To Search
+                    </Link>
                 </div>
-                <div>
-                    {bio && (
-                        <Fragment>
-                            <h3>Bio</h3>
+
+                <div className='grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 mb-8 md:gap-8'>
+                    <div className='custom-card-image mb-6 md:mb-0'>
+                        <div className='before:!opacity-50 rounded-lg shadow-xl card image-full'>
+                            <figure>
+                                <img src={avatar_url} alt='' className='rounded-2xl' />
+                            </figure>
+                            <div className='card-body justify-end px-6 py-4'>
+                                <h2 className='card-title mb-0'>{name}</h2>
+                                <p>{login}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='col-span-2'>
+                        <div className='mb-6'>
+                            <h1 className='text-3xl card-title'>
+                                {name}
+                                <div className='ml-2 mr-1 badge badge-success'>{type}</div>
+                                {hireable && (
+                                    <div className='mx-1 badge badge-info'>Hireable</div>
+                                )}
+                            </h1>
                             <p>{bio}</p>
-                        </Fragment>
-                    )}
-                    <a href={html_url} className='btn btn-dark my-1'>
-                        Visit Github Profile
-                    </a>
-                    <ul>
-                        <li>
-                            {login && (
-                                <Fragment>
-                                    <strong>Username: </strong> {login}
-                                </Fragment>
-                            )}
-                        </li>
+                            <div className='mt-4 card-actions'>
+                                <a
+                                    href={html_url}
+                                    target='_blank'
+                                    rel='noreferrer'
+                                    className='btn btn-outline'
+                                >
+                                    Visit Github Profile
+                                </a>
+                            </div>
+                        </div>
 
-                        <li>
-                            {company && (
-                                <Fragment>
-                                    <strong>Company: </strong> {company}
-                                </Fragment>
+                        <div className='w-full rounded-lg shadow-md bg-gray-800 stats'>
+                            {location && (
+                                <div className='stat bg-gray-800'>
+                                    <div className='stat-title text-md'>Location</div>
+                                    <div className='text-lg stat-value'>{location}</div>
+                                </div>
                             )}
-                        </li>
-
-                        <li>
                             {blog && (
-                                <Fragment>
-                                    <strong>Website: </strong> {blog}
-                                </Fragment>
+                                <div className='stat bg-gray-800'>
+                                    <div className='stat-title text-md'>Website</div>
+                                    <div className='text-lg stat-value'>
+                                        <a
+                                            href={`https://${blog}`}
+                                            target='_blank'
+                                            rel='noreferrer'
+                                        >
+                                            {blog}
+                                        </a>
+                                    </div>
+                                </div>
                             )}
-                        </li>
-                    </ul>
+                            {twitter_username && (
+                                <div className='stat bg-gray-800'>
+                                    <div className='stat-title text-md'>Twitter</div>
+                                    <div className='text-lg stat-value'>
+                                        <a
+                                            href={`https://twitter.com/${twitter_username}`}
+                                            target='_blank'
+                                            rel='noreferrer'
+                                        >
+                                            {twitter_username}
+                                        </a>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </div>
+
+                <div className='w-full py-5 mb-6 rounded-lg shadow-md bg-gray-800 stats'>
+                    <div className='stat bg-gray-800'>
+                        <div className='stat-figure text-violet-700'>
+                            <FaUsers className='text-3xl md:text-5xl' />
+                        </div>
+                        <div className='stat-title pr-5'>Followers</div>
+                        <div className='stat-value pr-5 text-3xl md:text-4xl'>
+                            {followers}
+                        </div>
+                    </div>
+
+                    <div className='stat bg-gray-800'>
+                        <div className='stat-figure text-violet-700'>
+                            <FaUserFriends className='text-3xl md:text-5xl' />
+                        </div>
+                        <div className='stat-title pr-5'>Following</div>
+                        <div className='stat-value pr-5 text-3xl md:text-4xl'>
+                            {following}
+                        </div>
+                    </div>
+
+                    <div className='stat bg-gray-800'>
+                        <div className='stat-figure text-violet-700'>
+                            <FaCodepen className='text-3xl md:text-5xl' />
+                        </div>
+                        <div className='stat-title pr-5'>Public Repos</div>
+                        <div className='stat-value pr-5 text-3xl md:text-4xl'>
+                            {public_repos}
+                        </div>
+                    </div>
+
+                    <div className='stat bg-gray-800'>
+                        <div className='stat-figure text-violet-700'>
+                            <FaStore className='text-3xl md:text-5xl' />
+                        </div>
+                        <div className='stat-title pr-5'>Public Gists</div>
+                        <div className='stat-value pr-5 text-3xl md:text-4xl'>
+                            {public_gists}
+                        </div>
+                    </div>
+                </div>
+
+                {/* <RepoList repos={repos} /> */}
             </div>
-            <div className='card text-center'>
-                <div className='badge badge-primary'>Followers: {followers}</div>
-                <div className='badge badge-success'>Following: {following}</div>
-                <div className='badge badge-light'>Public Repos: {public_repos}</div>
-                <div className='badge badge-dark'>Public Gists: {public_gists}</div>
-            </div>
-            {/* <Repos repos={repos} /> */}
-        </Fragment>
+        </>
     )
 }
 
