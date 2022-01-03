@@ -14,7 +14,6 @@ function Navbar({ title }) {
                     <div className="flex justify-end">
                         <Link to="/" className='btn btn-ghost'>Home</Link>
                         <Link to="/about" className='btn btn-ghost'>About</Link>
-                        <Link to="/nonav" className='btn btn-ghost'>No Nav</Link>
                     </div>
                 </div>
             </div>
