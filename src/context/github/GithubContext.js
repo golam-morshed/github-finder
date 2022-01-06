@@ -20,7 +20,20 @@ export const GithubProvider = ({ children }) => {
         })
     }
 
+    const clearUserDetail = () => {
+        dispatch({
+            type: 'CLEAR_USER',
+        })
+    }
+
+    const setLoading = () => {
+        dispatch({
+            type: 'SET_LOADING',
+        })
+    }
+
     const getUser = async (login) => {
+        setLoading();
         const response = await fetch(`${GITHUB_URL}/users/${login}`, {
             headers: {
                 Authorization: `token ${GITHUB_TOKEN}`
@@ -32,7 +45,6 @@ export const GithubProvider = ({ children }) => {
         } else {
 
             const userData = await response.json();
-            console.log("userdata from the apo", userData)
 
             dispatch({
                 type: 'GET-USER',
@@ -48,6 +60,7 @@ export const GithubProvider = ({ children }) => {
         const param = new URLSearchParams({
             q: text,
         });
+        setLoading();
         const response = await fetch(`${GITHUB_URL}/search/users?${param}`, {
             headers: {
                 Authorization: `token ${GITHUB_TOKEN}`
@@ -72,6 +85,8 @@ export const GithubProvider = ({ children }) => {
             clearSearch,
             searchUsers,
             getUser,
+            clearUserDetail,
+            setLoading,
         }} >
             {children}
         </GithubContext.Provider >
